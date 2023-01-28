@@ -20,17 +20,26 @@ public class PaymentServiceImpl implements PaymentService {
     public Payment pay(Integer reservationId, int amountSent, String mode) throws Exception {
         Reservation reservation = reservationRepository2.findById(reservationId).get();
 
-        Payment payment = new Payment();
-
         int bill = reservation.getNumberOfHours() * reservation.getSpot().getPricePerHour();
 
-        if(amountSent != bill){
+        if(amountSent < bill){
             throw new Exception("Insufficient Amount");
         }
-        else {
-            payment.setPaymentMode(PaymentMode.valueOf(mode));
-            payment.setPaymentCompleted(true);
-        }
+
+        PaymentMode paymentMode = null;
+        mode = mode.toUpperCase();
+
+        if(mode.equals("CASH"))
+            paymentMode = PaymentMode.CASH;
+        else if (mode.equals("CARD"))
+            paymentMode = PaymentMode.CARD;
+        else if (mode.equals("UPI"))
+            paymentMode = PaymentMode.UPI;
+        else
+            throw new Exception("Payment node not detected");
+
+        Payment payment = new Payment(true, paymentMode, reservation);
+        reservation.setPayment(payment);
 
         paymentRepository2.save(payment);
         return payment;
