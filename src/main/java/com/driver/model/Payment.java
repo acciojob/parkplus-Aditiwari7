@@ -35,11 +35,11 @@ public class Payment {
         this.paymentCompleted = paymentCompleted;
     }
 
+    public PaymentMode getPaymentMode() {
+        return paymentMode;
+    }
     public void setPaymentMode(PaymentMode paymentMode) {
         this.paymentMode = paymentMode;
-    }
-    public PaymentMode getPaymentMode(String mode) {
-        return paymentMode;
     }
 
     public void setReservation(Reservation reservation) {
