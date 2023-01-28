@@ -20,9 +20,7 @@ public class PaymentServiceImpl implements PaymentService {
     public Payment pay(Integer reservationId, int amountSent, String mode) throws Exception {
         Reservation reservation = reservationRepository2.findById(reservationId).get();
 
-        int bill = reservation.getNumberOfHours() * reservation.getSpot().getPricePerHour();
-
-        if(amountSent < bill){
+        if(amountSent < reservation.getNumberOfHours() * reservation.getSpot().getPricePerHour()){
             throw new Exception("Insufficient Amount");
         }
 
@@ -36,9 +34,10 @@ public class PaymentServiceImpl implements PaymentService {
         else if (mode.equals("UPI"))
             paymentMode = PaymentMode.UPI;
         else
-            throw new Exception("Payment node not detected");
+            throw new Exception("Payment mode not detected");
 
-        Payment payment = new Payment(true, paymentMode, reservation);
+        Payment payment = new Payment(true, paymentMode);
+        payment.setReservation(reservation);
         reservation.setPayment(payment);
 
         paymentRepository2.save(payment);
