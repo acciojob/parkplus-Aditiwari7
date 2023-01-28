@@ -54,7 +54,7 @@ public class Spot {
         this.spotType = spotType;
     }
 
-    public boolean isOccupied() {
+    public boolean getOccupied() {
         return occupied;
     }
     public void setOccupied(boolean occupied) {
