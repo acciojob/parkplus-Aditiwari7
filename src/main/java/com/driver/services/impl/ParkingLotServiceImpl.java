@@ -56,6 +56,8 @@ public class ParkingLotServiceImpl implements ParkingLotService {
         spot.setParkingLot(parkingLot);
         spot.setOccupied(true);
 
+        spotRepository1.save(spot);
+
         return spot;
     }
 
