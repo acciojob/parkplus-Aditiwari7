@@ -13,6 +13,7 @@ public class Reservation {
     private int numberOfHours;
 
     @ManyToOne
+    @JoinColumn
     private User user;
 
     @OneToMany
@@ -20,13 +21,13 @@ public class Reservation {
     private Spot spot;
 
     @OneToOne(mappedBy = "reservation", cascade = CascadeType.ALL)
-    Payment payment;
+    private Payment payment;
 
     public Reservation(){}
 
-//    public Reservation(int numOfHours){
-//        this.numberOfHours = numOfHours;
-//    }
+    public Reservation(int numOfHours){
+        this.numberOfHours = numOfHours;
+    }
 
     public void setId(int id) {
         this.id = id;

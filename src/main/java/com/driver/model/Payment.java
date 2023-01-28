@@ -12,7 +12,7 @@ public class Payment {
 
     private boolean paymentCompleted;
 
-    @Enumerated(value = EnumType.STRING)
+//    @Enumerated(value = EnumType.STRING)
     private PaymentMode paymentMode;
 
     @OneToOne
@@ -20,6 +20,12 @@ public class Payment {
     private Reservation reservation;
 
     public Payment(){}
+
+    public Payment(boolean paymentCompleted1, PaymentMode paymentMode1, Reservation reservation1){
+        this.paymentCompleted = paymentCompleted1;
+        this.paymentMode = paymentMode1;
+        this.reservation = reservation1;
+    }
 
     public int getId() {
         return id;
